@@ -154,10 +154,15 @@ button {
   background-position: 50% 38%;
   background-size: 80%;
   background-repeat: no-repeat;
+  text-align: center;
+}
+
+.result__info {
+  transform: translateY(0.8rem);
 }
 
 .result__message {
-  margin: 1rem 0;
+  margin-bottom: 0.5rem;
   font-size: 20px;
   font-weight: bolder;
 }

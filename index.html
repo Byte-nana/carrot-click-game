@@ -17,15 +17,19 @@
     <section class="game">
       <header class="game__header">
         <img
-          class="header__title"
+          class="header__title shrink"
           data-ui="title"
           src="assets/images/ui/game-title.png"
           alt="carrot farm"
         />
-        <button class="btn header__start" data-action="start" type="button">
+        <button
+          class="btn header__start hidden"
+          data-action="start"
+          type="button"
+        >
           start
         </button>
-        <div class="header__info hidden" data-ui="info">
+        <div class="header__info" data-ui="info">
           <p class="header__timer" data-ui="timer">time 00:00</p>
           <p class="header__score" data-ui="score">10/10</p>
         </div>
@@ -45,12 +49,20 @@
         />
       </main>
     </section>
-    <div class="overlay hidden" data-ui="overlay">
+    <div class="overlay" data-ui="overlay">
       <section class="result" data-ui="result">
-        <p class="result__message" data-ui="message">All carrots collected!</p>
-        <button class="btn result__restart" data-action="restart" type="button">
-          restart
-        </button>
+        <div class="result__info">
+          <p class="result__message" data-ui="message">
+            All carrots collected!
+          </p>
+          <button
+            class="btn result__restart"
+            data-action="restart"
+            type="button"
+          >
+            restart
+          </button>
+        </div>
       </section>
     </div>
   </body>
