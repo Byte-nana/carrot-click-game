@@ -7,5 +7,45 @@
     <script src="js/main.js" defer></script>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body></body>
+  <body>
+    <section class="game">
+      <header class="game__header">
+        <img
+          class="header__title"
+          data-ui="title"
+          src="assets/images/ui/game-title.png"
+          alt="carrot farm"
+        />
+        <button class="btn header__start" data-action="start" type="button">
+          start
+        </button>
+        <div class="header__info" data-ui="info">
+          <p class="header__timer" data-ui="timer">time 00:00</p>
+          <p class="header__score" data-ui="score">5/5</p>
+        </div>
+      </header>
+      <main class="game__field" data-spawn-area>
+        <img
+          class="carrot"
+          data-action="carrot"
+          src="assets/images/sprites/carrot.png"
+          alt="carrot"
+        />
+        <img
+          class="bug"
+          data-action="bug"
+          src="assets/images/sprites/bug.png"
+          alt="bug"
+        />
+      </main>
+    </section>
+    <div class="overlay" data-ui="overlay">
+      <section class="result" data-ui="result">
+        <p class="result__message" data-ui="message">All carrots collected!</p>
+        <button class="btn result__restart" data-action="restart" type="button">
+          restart
+        </button>
+      </section>
+    </div>
+  </body>
 </html>
