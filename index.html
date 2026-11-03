@@ -6,22 +6,32 @@
     <title>Carrot Clicking Game</title>
     <script src="js/main.js" defer></script>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <section class="game">
       <header class="game__header">
         <img
-          class="header__title"
+          class="header__title shrink"
           data-ui="title"
           src="assets/images/ui/game-title.png"
           alt="carrot farm"
         />
-        <button class="btn header__start" data-action="start" type="button">
+        <button
+          class="btn header__start hidden"
+          data-action="start"
+          type="button"
+        >
           start
         </button>
         <div class="header__info" data-ui="info">
           <p class="header__timer" data-ui="timer">time 00:00</p>
-          <p class="header__score" data-ui="score">5/5</p>
+          <p class="header__score" data-ui="score">10/10</p>
         </div>
       </header>
       <main class="game__field" data-spawn-area>
@@ -39,7 +49,7 @@
         />
       </main>
     </section>
-    <div class="overlay" data-ui="overlay">
+    <div class="overlay hidden" data-ui="overlay">
       <section class="result" data-ui="result">
         <p class="result__message" data-ui="message">All carrots collected!</p>
         <button class="btn result__restart" data-action="restart" type="button">
