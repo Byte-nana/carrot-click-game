@@ -153,7 +153,6 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url('../assets/images/ui/result-frame-success.png');
   background-position: 50% 38%;
   background-size: 80%;
   background-repeat: no-repeat;

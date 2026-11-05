@@ -5,6 +5,9 @@ const logo = document.querySelector('[data-ui="title"]');
 const info = document.querySelector('[data-ui="info"]');
 const timer = document.querySelector('[data-ui="timer"]');
 const scoreUI = document.querySelector('[data-ui="score"]');
+const overlay = document.querySelector('[data-ui="overlay"]');
+const resultBackGround = document.querySelector('[data-ui="result"]');
+const resultMessage = document.querySelector('[data-ui="message"]');
 
 const game = {
   state: 'ready',
@@ -30,18 +33,15 @@ function startGame() {
 }
 
 function endGame(result) {
-  //'won', 'lost'공통 로직
-  //1. game.state를  'won' or 'lost'
   game.state = result;
-  //2. 타이머 중지하기
   stopTimer();
   //3. 배경음악 멈추기
   stopBGM();
   //4. 'won' or 'lost'효과음 내기
   playSound('won') || playSound('lost');
-  //5. 당근, 벌레를 눌러도 동작하지 않게 하기
   //6. 효과음 내지 않기
   stopAllSounds();
+  showResult(result);
 }
 
 function startTimer() {
@@ -88,7 +88,7 @@ function handleClickObjects(object) {
       game.score -= 1;
       scoreUI.textContent = `${game.score} / ${game.carrotCount}`;
       if (game.score === 0 && game.remainingTimeSec > 0) {
-        endGame('win');
+        endGame('won');
       }
       break;
     case 'bug':
@@ -135,6 +135,25 @@ function showHUD() {
   logo.classList.add('shrink');
   startBtn.classList.add('hidden');
   info.classList.remove('hidden');
+}
+
+function showResult(result) {
+  overlay.classList.remove('hidden');
+
+  switch (result) {
+    case 'won':
+      resultBackGround.style.backgroundImage =
+        "url('assets/images/ui/result-frame-success.png')";
+      resultMessage.textContent = 'All carrots collected!';
+      break;
+    case 'lost':
+      resultBackGround.style.backgroundImage =
+        "url('assets/images/ui/result-frame-failed.png')";
+      resultMessage.textContent = 'Try again!';
+      break;
+    default:
+      throw new Error(`Unknow result: ${result}`);
+  }
 }
 
 gameField.addEventListener('click', (e) => {
