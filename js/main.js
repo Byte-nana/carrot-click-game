@@ -32,6 +32,7 @@ function startGame() {
 function endGame(result) {
   //'won', 'lost'공통 로직
   //1. game.state를  'won' or 'lost'
+  game.state = result;
   //2. 타이머 중지하기
   stopTimer();
   //3. 배경음악 멈추기
@@ -58,7 +59,9 @@ function startTimer() {
   }, 1000);
 }
 
-function stopTimer() {}
+function stopTimer() {
+  clearInterval(game.timerId);
+}
 
 function createObjects(types, counts) {
   for (let i = 0; i < counts; i++) {
