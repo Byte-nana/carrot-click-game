@@ -16,8 +16,8 @@ function startGame() {
   //1. state를 playing로 전환
   game.state = 'playing';
   //2. 당근, 벌레 생성하기
-  createCarrots(game.carrotCount);
-  createBugs(game.bugCount);
+  createObjects('carrot', game.carrotCount);
+  createObjects('bug', game.bugCount);
   //3. 타이머 시작
   startTimer();
   //4. 배경음악 시작하기
@@ -46,34 +46,19 @@ function startTimer() {
 
 function stopTimer() {}
 
-function createCarrots(counts) {
+function createObjects(types, counts) {
   for (let i = 0; i < counts; i++) {
-    const carrot = document.createElement('img');
-    carrot.setAttribute('src', '../assets/images/sprites/carrot.png');
-    carrot.setAttribute('alt', 'carrot');
-    carrot.setAttribute('class', 'carrot');
-    carrot.setAttribute('data-action', 'carrot');
+    const object = document.createElement('img');
+    object.setAttribute('src', `../assets/images/sprites/${types}.png`);
+    object.setAttribute('alt', `${types}`);
+    object.setAttribute('class', `${types}`);
+    object.setAttribute('data-action', `${types}`);
 
     const random = setRandomPosition();
-    carrot.style.top = `${random.y}px`;
-    carrot.style.left = `${random.x}px`;
+    object.style.top = `${random.y}px`;
+    object.style.left = `${random.x}px`;
 
-    gameField.append(carrot);
-  }
-}
-
-function createBugs(counts) {
-  for (let i = 0; i < counts; i++) {
-    const bug = document.createElement('img');
-    bug.setAttribute('src', '../assets/images/sprites/bug.png');
-    bug.setAttribute('alt', 'bug');
-    bug.setAttribute('class', 'bug');
-    bug.setAttribute('data-action', 'bug');
-
-    const random = setRandomPosition();
-    bug.style.transform = `translate(${random.x}px, ${random.y}px)`;
-
-    gameField.append(bug);
+    gameField.append(object);
   }
 }
 
