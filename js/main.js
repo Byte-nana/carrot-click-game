@@ -1,6 +1,8 @@
 const gameField = document.querySelector('[data-spawn-area]');
 const startBtn = document.querySelector('[data-action="start"]');
 const restartBtn = document.querySelector('[data-action="restart"]');
+const logo = document.querySelector('[data-ui="title"]');
+const info = document.querySelector('[data-ui="info"]');
 
 const game = {
   state: 'ready',
@@ -96,6 +98,12 @@ function setRandomPosition() {
   return { x: randomX, y: randomY };
 }
 
+function showHUD() {
+  logo.classList.add('shrink');
+  startBtn.classList.add('hidden');
+  info.classList.remove('hidden');
+}
+
 gameField.addEventListener('click', (e) => {
   handleClickObjects();
 });
@@ -103,7 +111,7 @@ gameField.addEventListener('click', (e) => {
 // start, restart는 같은 로직을 공유한다. 이벤트를 발생을 줄이는 방법이 없을까?
 startBtn.addEventListener('click', () => {
   startGame();
-  console.log(game.state);
+  showHUD();
 });
 
 restartBtn.addEventListener('click', () => {
