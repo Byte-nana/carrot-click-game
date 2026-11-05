@@ -116,21 +116,24 @@ button {
 }
 /* main */
 .game__field {
+  position: relative;
   height: 55%;
 }
 
 .carrot,
 .bug {
+  position: absolute;
   width: 55px;
   cursor: pointer;
   image-rendering: pixelated;
 }
 .carrot {
-  transition: transform 100ms ease-in;
+  transition: transform 150ms ease-in;
 }
-
-.carrot:hover {
-  transform: scale(1.2);
+@media (hover: hover) and (pointer: fine) {
+  .carrot:hover {
+    transform: scale(1.3);
+  }
 }
 
 /* overlay */
