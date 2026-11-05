@@ -3,11 +3,12 @@ const startBtn = document.querySelector('[data-action="start"]');
 const restartBtn = document.querySelector('[data-action="restart"]');
 const logo = document.querySelector('[data-ui="title"]');
 const info = document.querySelector('[data-ui="info"]');
+const timer = document.querySelector('[data-ui="timer"]');
 
 const game = {
   state: 'ready',
   layout: 'compact',
-  remainingTimeSec: 30,
+  remainingTimeSec: 3,
   carrotCount: 10,
   bugCount: 10,
   timerId: null,
@@ -41,9 +42,18 @@ function endGame(result) {
 }
 
 function startTimer() {
-  //1. game.state === playing일때만 동작
-  //2. game.state === 'wond || 'lost'면 동작하지 않고 그대로 멈춘다.
-  //3. 포맷은 MM:SS (기본시간은 30초지만 60초가 넘어가면 MM자리에 오도록 포맷 만들기)
+  if (game.state === 'won' || game.state === 'lost') return;
+
+  timer.textContent = formatTime(game.remainingTimeSec);
+
+  game.timerId = setInterval(() => {
+    game.remainingTimeSec -= 1;
+    timer.textContent = formatTime(game.remainingTimeSec);
+    if (game.remainingTimeSec <= 0) {
+      clearInterval(game.timerId);
+      game.timerId = null;
+    }
+  }, 1000);
 }
 
 function stopTimer() {}
@@ -96,6 +106,19 @@ function setRandomPosition() {
   const randomY = Math.random() * availableFieldHeight;
 
   return { x: randomX, y: randomY };
+}
+
+function formatTime(secs) {
+  if (isNaN(secs) || secs < 0) return;
+
+  const minutes = Math.floor(secs / 60)
+    .toString()
+    .padStart(2, '0');
+  const seconds = (secs % 60).toString().padStart(2, '0');
+
+  const formatted = `${minutes} : ${seconds}`;
+
+  return formatted;
 }
 
 function showHUD() {
