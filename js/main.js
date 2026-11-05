@@ -4,13 +4,15 @@ const restartBtn = document.querySelector('[data-action="restart"]');
 const logo = document.querySelector('[data-ui="title"]');
 const info = document.querySelector('[data-ui="info"]');
 const timer = document.querySelector('[data-ui="timer"]');
+const scoreUI = document.querySelector('[data-ui="score"]');
 
 const game = {
   state: 'ready',
   layout: 'compact',
-  remainingTimeSec: 3,
+  remainingTimeSec: 30,
+  score: 10,
   carrotCount: 10,
-  bugCount: 10,
+  bugCount: 4,
   timerId: null,
 };
 
@@ -75,18 +77,23 @@ function createObjects(types, counts) {
 }
 
 function handleClickObjects(object) {
-  //game.state === playing일 때만 가능, 그 외는 동작하지 않게 하기.
-  //1. 당근이면
-  handleClickCarrot();
-  //2. 벌레면
-  handleClickBug();
-}
+  if (game.state !== 'playing') return;
 
-function handleClickCarrot() {}
-
-function handleClickBug() {
-  //게임 즉시 종료
-  endGame();
+  switch (object.dataset.action) {
+    case 'carrot':
+      object.remove();
+      game.score -= 1;
+      scoreUI.textContent = `${game.score} / ${game.carrotCount}`;
+      if (game.score === 0 && game.remainingTimeSec > 0) {
+        endGame('win');
+      }
+      break;
+    case 'bug':
+      endGame('lost');
+      break;
+    default:
+      throw new Error(`Unknown event target: ${object}`);
+  }
 }
 
 function playBGM() {}
@@ -128,7 +135,9 @@ function showHUD() {
 }
 
 gameField.addEventListener('click', (e) => {
-  handleClickObjects();
+  if (e.target !== e.currentTarget) {
+    handleClickObjects(e.target);
+  }
 });
 
 // start, restart는 같은 로직을 공유한다. 이벤트를 발생을 줄이는 방법이 없을까?
