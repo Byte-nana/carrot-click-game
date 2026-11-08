@@ -14,6 +14,12 @@ const bgm = new Audio('./assets/audio/bgm/bgm.ogg');
 bgm.loop = true;
 bgm.volume = 0.4;
 
+const sfxSounds = {
+  carrot: new Audio('./assets/audio/sfx/carrot.wav'),
+  lost: new Audio('./assets/audio/sfx/failed.wav'),
+  won: new Audio('./assets/audio/sfx/success.wav'),
+};
+
 const game = {
   state: 'ready',
   layout: 'compact',
@@ -41,6 +47,7 @@ function initialiseGame() {
   resetHUD();
   gameField.replaceChildren();
   hideResult();
+  stopAllSoundEffects();
 }
 
 function startGame() {
@@ -60,10 +67,7 @@ function endGame(result) {
   game.state = result;
   stopTimer();
   stopBGM();
-  //4. 'won' or 'lost'효과음 내기
-  playSound('won') || playSound('lost');
-  //6. 효과음 내지 않기
-  stopAllSounds();
+  playSound(result);
   showResult(result);
 }
 
@@ -107,6 +111,7 @@ function handleClickObjects(object) {
 
   switch (object.dataset.action) {
     case 'carrot':
+      playSound('carrot');
       object.remove();
       game.score -= 1;
       scoreUI.textContent = `${game.score} / ${game.carrotCount}`;
@@ -134,9 +139,29 @@ function stopBGM() {
   bgm.currentTime = 0;
 }
 
-function playSound(type) {}
+function playSound(type) {
+  switch (type) {
+    case 'carrot':
+      sfxSounds.carrot.currentTime = 0;
+      sfxSounds.carrot.play();
+      break;
+    case 'lost':
+      sfxSounds.lost.play();
+      break;
+    case 'won':
+      sfxSounds.won.play();
+      break;
+    default:
+      throw new Error(`Unknown sfx: ${type}`);
+  }
+}
 
-function stopAllSounds() {}
+function stopAllSoundEffects() {
+  Object.values(sfxSounds).forEach((sound) => {
+    sound.pause();
+    sound.currentTime = 0;
+  });
+}
 
 function setRandomPosition() {
   const fieldRect = gameField.getBoundingClientRect();
