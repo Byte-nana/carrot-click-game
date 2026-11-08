@@ -73,6 +73,7 @@ function startTimer() {
     if (game.remainingTimeSec <= 0) {
       clearInterval(game.timerId);
       game.timerId = null;
+      endGame('lost');
     }
   }, 1000);
 }
