@@ -19,14 +19,34 @@ const game = {
   timerId: null,
 };
 
+function resetGameData() {
+  game.remainingTimeSec = 30;
+  game.score = 10;
+  game.carrotCount = 10;
+  game.bugCount = 4;
+}
+
+function resetHUD() {
+  scoreUI.textContent = `${game.score} / ${game.carrotCount}`;
+  timer.textContent = formatTime(game.remainingTimeSec);
+}
+
+function initialiseGame() {
+  resetGameData();
+  resetHUD();
+  gameField.replaceChildren();
+  hideResult();
+}
+
 function startGame() {
-  //게임 초기화 로직도 작성하기
-  //1. state를 playing로 전환
+  initialiseGame();
+
   game.state = 'playing';
-  //2. 당근, 벌레 생성하기
+  showHUD();
+
   createObjects('carrot', game.carrotCount);
   createObjects('bug', game.bugCount);
-  //3. 타이머 시작
+
   startTimer();
   //4. 배경음악 시작하기
   playBGM();
@@ -47,8 +67,6 @@ function endGame(result) {
 function startTimer() {
   if (game.state === 'won' || game.state === 'lost') return;
 
-  timer.textContent = formatTime(game.remainingTimeSec);
-
   game.timerId = setInterval(() => {
     game.remainingTimeSec -= 1;
     timer.textContent = formatTime(game.remainingTimeSec);
@@ -61,6 +79,7 @@ function startTimer() {
 
 function stopTimer() {
   clearInterval(game.timerId);
+  game.timerId = null;
 }
 
 function createObjects(types, counts) {
@@ -156,6 +175,10 @@ function showResult(result) {
   }
 }
 
+function hideResult() {
+  overlay.classList.add('hidden');
+}
+
 gameField.addEventListener('click', (e) => {
   if (e.target !== e.currentTarget) {
     handleClickObjects(e.target);
@@ -165,7 +188,6 @@ gameField.addEventListener('click', (e) => {
 // start, restart는 같은 로직을 공유한다. 이벤트를 발생을 줄이는 방법이 없을까?
 startBtn.addEventListener('click', () => {
   startGame();
-  showHUD();
 });
 
 restartBtn.addEventListener('click', () => {
