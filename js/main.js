@@ -9,6 +9,11 @@ const overlay = document.querySelector('[data-ui="overlay"]');
 const resultBackGround = document.querySelector('[data-ui="result"]');
 const resultMessage = document.querySelector('[data-ui="message"]');
 
+// Audio
+const bgm = new Audio('./assets/audio/bgm/bgm.ogg');
+bgm.loop = true;
+bgm.volume = 0.4;
+
 const game = {
   state: 'ready',
   layout: 'compact',
@@ -48,14 +53,12 @@ function startGame() {
   createObjects('bug', game.bugCount);
 
   startTimer();
-  //4. 배경음악 시작하기
   playBGM();
 }
 
 function endGame(result) {
   game.state = result;
   stopTimer();
-  //3. 배경음악 멈추기
   stopBGM();
   //4. 'won' or 'lost'효과음 내기
   playSound('won') || playSound('lost');
@@ -119,9 +122,17 @@ function handleClickObjects(object) {
   }
 }
 
-function playBGM() {}
+function playBGM() {
+  bgm.currentTime = 0;
+  bgm.play().catch((error) => {
+    console.warn('BGM playback failed:', error);
+  });
+}
 
-function stopBGM() {}
+function stopBGM() {
+  bgm.pause();
+  bgm.currentTime = 0;
+}
 
 function playSound(type) {}
 
