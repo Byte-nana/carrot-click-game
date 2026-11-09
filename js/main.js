@@ -193,8 +193,10 @@ function stopAllSoundEffects() {
 
 function setRandomPosition() {
   const fieldRect = gameField.getBoundingClientRect();
-  const availableFieldWidth = Math.max(0, fieldRect.width - 55);
-  const availableFieldHeight = Math.max(0, fieldRect.height - 55);
+  const objectSize = game.layout === 'wide' ? 104 : 55;
+
+  const availableFieldWidth = Math.max(0, fieldRect.width - objectSize);
+  const availableFieldHeight = Math.max(0, fieldRect.height - objectSize);
 
   const randomX = Math.random() * availableFieldWidth;
   const randomY = Math.random() * availableFieldHeight;
