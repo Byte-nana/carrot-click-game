@@ -77,12 +77,26 @@ button {
 }
 
 /*  */
-.game {
+.game-container {
+  container-type: inline-size;
+  container-name: game;
+  position: relative;
   width: 100%;
   max-width: 360px;
   height: 480px;
-  padding: 1rem;
   aspect-ratio: 3/4;
+}
+
+/* 게임판 고정하기 */
+.game-container.is-locked {
+  max-width: none;
+  aspect-ratio: auto;
+}
+
+.game {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
   background: url('../assets/images/backgrounds/bg-mobile.webp') center / cover
     no-repeat;
   image-rendering: pixelated;
@@ -139,6 +153,8 @@ button {
 /* overlay */
 .overlay {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   max-width: 360px;
   height: 480px;
@@ -192,16 +208,21 @@ button {
 
 /* wide */
 @media screen and (min-width: 768px) {
+  .game-container:not(.is-locked) {
+    max-width: 800px;
+    height: 600px;
+    aspect-ratio: 4 /3;
+  }
+}
+
+@container game (width > 768px ) {
   .btn {
     font-size: 28px;
     height: 48px;
   }
 
   .game {
-    max-width: 800px;
-    height: 600px;
     padding: 1.5rem;
-    aspect-ratio: 4 /3;
     background: url('../assets/images/backgrounds/bg-pc.webp') center / cover
       no-repeat;
   }

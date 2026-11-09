@@ -8,6 +8,7 @@ const scoreUI = document.querySelector('[data-ui="score"]');
 const overlay = document.querySelector('[data-ui="overlay"]');
 const resultBackGround = document.querySelector('[data-ui="result"]');
 const resultMessage = document.querySelector('[data-ui="message"]');
+const gameContainer = document.querySelector('[data-ui="container"]');
 
 // Audio
 const bgm = new Audio('./assets/audio/bgm/bgm.ogg');
@@ -30,11 +31,36 @@ const game = {
   timerId: null,
 };
 
+//게임판 고정 로직 만들기
+function setGameLayout() {
+  const isWide = window.innerWidth >= 768;
+  game.layout = isWide ? 'wide' : 'compact';
+}
+
+function lockGameLayout() {
+  if (game.state !== 'playing') return;
+
+  const rect = gameContainer.getBoundingClientRect();
+
+  gameContainer.classList.add('is-locked');
+  gameContainer.style.width = `${rect.width}px`;
+  gameContainer.style.height = `${rect.height}px`;
+}
+
+function unlockGameLayout() {
+  if (game.state === 'playing') return;
+
+  gameContainer.classList.remove('is-locked');
+  gameContainer.style.removeProperty('width');
+  gameContainer.style.removeProperty('height');
+}
+
 function resetGameData() {
   game.remainingTimeSec = 30;
   game.score = 10;
   game.carrotCount = 10;
   game.bugCount = 4;
+  setGameLayout();
 }
 
 function resetHUD() {
@@ -44,6 +70,7 @@ function resetHUD() {
 
 function initialiseGame() {
   resetGameData();
+  unlockGameLayout();
   resetHUD();
   gameField.replaceChildren();
   hideResult();
@@ -54,6 +81,7 @@ function startGame() {
   initialiseGame();
 
   game.state = 'playing';
+  lockGameLayout();
   showHUD();
 
   createObjects('carrot', game.carrotCount);

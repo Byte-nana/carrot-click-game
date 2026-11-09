@@ -14,50 +14,52 @@
     />
   </head>
   <body>
-    <section class="game">
-      <header class="game__header">
-        <img
-          class="header__title"
-          data-ui="title"
-          src="assets/images/ui/game-title.png"
-          alt="carrot farm"
-        />
-        <button class="btn header__start" data-action="start" type="button">
-          start
-        </button>
-        <div class="header__info hidden" data-ui="info">
-          <p class="header__timer" data-ui="timer"></p>
-          <p class="header__score" data-ui="score">10/10</p>
-        </div>
-      </header>
-      <main class="game__field" data-spawn-area>
-        <!-- <img
+    <div class="game-container" data-ui="container">
+      <section class="game">
+        <header class="game__header">
+          <img
+            class="header__title"
+            data-ui="title"
+            src="assets/images/ui/game-title.png"
+            alt="carrot farm"
+          />
+          <button class="btn header__start" data-action="start" type="button">
+            start
+          </button>
+          <div class="header__info hidden" data-ui="info">
+            <p class="header__timer" data-ui="timer"></p>
+            <p class="header__score" data-ui="score">10/10</p>
+          </div>
+        </header>
+        <main class="game__field" data-spawn-area>
+          <!-- <img
           class="carrot"
           data-action="carrot"
           src="assets/images/sprites/carrot.png"
           alt="carrot"
         /> -->
-        <!-- <img
+          <!-- <img
           class="bug"
           data-action="bug"
           src="assets/images/sprites/bug.png"
           alt="bug"
         /> -->
-      </main>
-    </section>
-    <div class="overlay hidden" data-ui="overlay">
-      <section class="result" data-ui="result">
-        <div class="result__info">
-          <p class="result__message" data-ui="message"></p>
-          <button
-            class="btn result__restart"
-            data-action="restart"
-            type="button"
-          >
-            restart
-          </button>
-        </div>
+        </main>
       </section>
+      <div class="overlay hidden" data-ui="overlay">
+        <section class="result" data-ui="result">
+          <div class="result__info">
+            <p class="result__message" data-ui="message"></p>
+            <button
+              class="btn result__restart"
+              data-action="restart"
+              type="button"
+            >
+              restart
+            </button>
+          </div>
+        </section>
+      </div>
     </div>
   </body>
 </html>
